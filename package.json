@@ -1,0 +1,32 @@
+{
+    "name": "photowall",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "serve": "webpack serve --port 5000",
+        "build": "webpack --mode production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AlexFazio64/PhotoWall.git"
+    },
+    "author": "AlexFazio64",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AlexFazio64/PhotoWall/issues"
+    },
+    "homepage": "https://github.com/AlexFazio64/PhotoWall",
+    "dependencies": {
+        "firebase": "^9.6.1",
+        "jquery": "^3.6.0"
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.5.10",
+        "path": "^0.12.7",
+        "ts-loader": "^9.2.6",
+        "webpack": "^5.65.0",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.6.0"
+    }
+}

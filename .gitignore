@@ -1,0 +1,4 @@
+node_modules
+docs/img/original*
+package-lock.json
+docs/*.*
