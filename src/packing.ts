@@ -60,20 +60,7 @@ export async function getGridArea(): Promise<solution> {
         }
     }
 
-    area
-
     let sol: solution = new solution([], area);
-
-    /******************************
-    soluzione: {
-            tall[].length == t
-            wide[].length == w
-            big[].length == b
-    
-            no overlays, randomized neighbors
-    }
-    ******************************/
-
     return getSolution(sol);
 }
 

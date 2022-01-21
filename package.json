@@ -18,11 +18,11 @@
     },
     "homepage": "https://github.com/AlexFazio64/PhotoWall",
     "dependencies": {
-        "firebase": "^9.6.1",
         "jquery": "^3.6.0"
     },
     "devDependencies": {
         "@types/jquery": "^3.5.10",
+        "firebase": "^9.6.1",
         "path": "^0.12.7",
         "ts-loader": "^9.2.6",
         "webpack": "^5.65.0",
