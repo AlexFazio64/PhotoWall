@@ -1,11 +1,6 @@
 {
-    "compilerOptions": {
-        "outDir": "./docs/",
-        "noImplicitAny": true,
-        "allowSyntheticDefaultImports": true,
-        "module": "es2022",
-        "target": "es5",
-        "allowJs": true,
-        "moduleResolution": "node"
-    }
+  "extends": "@tsconfig/svelte/tsconfig.json",
+
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }

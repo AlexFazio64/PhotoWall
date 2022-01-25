@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Sharp');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone');
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+.material-icons-outlined {
+    font-family: "Material Icons Outlined";
+}
+
+.material-icons-round {
+    font-family: "Material Icons Round";
+}
+
+.material-icons-sharp {
+    font-family: "Material Icons Sharp";
+}
+
+.material-icons-two-tone {
+    font-family: "Material Icons Two Tone";
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif, Verdana, sans-serif;
+}
+
+.spinner {
+    --color: white;
+    --size: 1em;
+    border: solid transparent;
+    border-top: solid var(--color);
+    border-bottom: solid var(--color);
+    border-width: 1.5px;
+    border-radius: 100%;
+    width: var(--size);
+    height: var(--size);
+    animation: spin infinite 0.7s alternate-reverse cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.t {
+    grid-column: span 2;
+    grid-row: span 3;
+}
+
+.w {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+.b {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.s {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pop-in {
+    to {
+        top: 1.5rem;
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(-60deg) scale(.5);
+    }
+    25% {
+        transform: rotate(60deg);
+    }
+    50% {
+        transform: rotate(-70deg) scale(1.25);
+    }
+    75% {
+        transform: rotate(50deg);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes click {
+    0% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(.45);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
