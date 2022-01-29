@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { logged, uid, user, auth, provider } from "../stores";
+  import { logged, uid, user, auth, provider, src } from "../stores";
   import {
     signInWithRedirect,
     getRedirectResult,
@@ -8,23 +8,23 @@
   import Grid from "./Grid.svelte";
   import User from "./User.svelte";
 
-  const signin = (_e) => {
-    signInWithRedirect($auth, $provider);
-  };
+  const signin = (_e) => signInWithRedirect($auth, $provider);
 
   getRedirectResult($auth).then((cred) => {
     if (cred) {
       const tok = GoogleAuthProvider.credentialFromResult(cred).accessToken;
-      logged.update((o) => (o = 1));
       uid.update((o) => (o = tok));
       user.update((o) => (o = cred));
+      logged.update((o) => (o = 1));
     } else {
       logged.update((o) => (o = -1));
     }
   });
 </script>
 
-{#if $logged == 1}
+{#if $src.length != 0}
+  <Grid />
+{:else if $logged == 1}
   <User />
 {:else}
   <main>
@@ -35,12 +35,7 @@
         Log into your Google Account to start customizing your wallpaper
       </p>
 
-      <button
-        id="loading-btn"
-        on:click|preventDefault={signin}
-        disabled={$logged == 0}
-        style={$logged == 0 ? "cursor: initial; filter: brightness(.5);" : ""}
-      >
+      <button id="loading-btn" on:click={signin} disabled={$logged == 0}>
         Login {#if $logged == 0}<div class="spinner" />{:else}with Google{/if}
       </button>
     </div>
@@ -58,6 +53,7 @@
   }
 
   .google-descr {
+    user-select: none;
     font-size: 1.5rem;
     text-align: justify;
   }
@@ -93,5 +89,14 @@
     justify-content: center;
     align-items: center;
     gap: 0.5em;
+  }
+
+  #loading-btn:hover:not(#loading-btn:disabled) {
+    filter: brightness(1.2);
+  }
+
+  #loading-btn:disabled {
+    cursor: progress;
+    filter: brightness(0.5);
   }
 </style>

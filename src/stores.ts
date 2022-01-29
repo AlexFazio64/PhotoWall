@@ -6,3 +6,4 @@ export const uid = writable<string>("");
 export const user = writable<UserCredential>();
 export const auth = writable<Auth>();
 export const provider = writable<AuthProvider>();
+export let src = writable<string[]>([]);

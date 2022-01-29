@@ -4,6 +4,10 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Sharp');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone');
+body {
+    height: 100vh;
+}
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -40,6 +44,7 @@
 * {
     padding: 0;
     margin: 0;
+    user-select: none;
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif, Verdana, sans-serif;
 }
@@ -47,10 +52,11 @@
 .spinner {
     --color: white;
     --size: 1em;
+    --w: 1.5px;
     border: solid transparent;
     border-top: solid var(--color);
     border-bottom: solid var(--color);
-    border-width: 1.5px;
+    border-width: var(--w);
     border-radius: 100%;
     width: var(--size);
     height: var(--size);
@@ -121,3 +127,37 @@
         transform: scale(1);
     }
 }
+
+@keyframes shift {
+    0% {
+        background-position: 0% 0%;
+    }
+    25% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    75% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 50% 0%;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: hsl(278, 84%, 30%);
+}
+
+
+/* 
+::-webkit-scrollbar-track
+::-webkit-scrollbar-track-piece
+::-webkit-scrollbar-button
+::-webkit-scrollbar-corner
+*/

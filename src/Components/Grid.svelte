@@ -1,7 +1,19 @@
 <script lang="ts">
+  import html2canvas from "html2canvas";
+  import { onMount } from "svelte";
   import { init, getGridArea } from "../packing";
+  import { src, uid } from "../stores";
+  import { mediaItems } from "../gapi_endpoints";
+  import Settings from "./Settings.svelte";
+
+  onMount(async () => {
+    if ($src.length > 0) {
+      await getMediaItem();
+    }
+  });
 
   let rows: number, cols: number;
+  let images: string[] = [];
 
   rows = Math.round(Math.random() * 7 + 5);
   cols = Math.round(Math.random() * 7 + 5);
@@ -9,14 +21,16 @@
 
   let grid = getGridArea();
 
-  const generateGrid = () => {
-    rows = Math.round(Math.random() * 7 + 5);
-    cols = Math.round(Math.random() * 7 + 5);
+  export const generateGrid = () => {
     init(rows, cols);
     grid = getGridArea();
   };
 
   const getRandomImage = () => {
+    if (images.length > 0) {
+      return images[Math.round(Math.random() * images.length)];
+    }
+
     return "https://picsum.photos/500?random=" + Math.random() * 100;
   };
 
@@ -34,16 +48,60 @@
     img.addEventListener("load", update);
     img.src = imageurl;
   };
+
+  const getMediaItem = async () => {
+    const params = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + $uid,
+    };
+
+    await fetch(mediaItems + ":search", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + $uid,
+      },
+      body: JSON.stringify({
+        pageSize: "70",
+        filters: {
+          mediaTypeFilter: {
+            mediaTypes: ["PHOTO"],
+          },
+        },
+      }),
+    }).then((resp) => {
+      resp.json().then(async (body) => {
+        for (const a of body.mediaItems) {
+          images.push(a.baseUrl);
+        }
+      });
+    });
+
+    console.log(images);
+  };
 </script>
 
-<button
-  id="refresh"
-  class="material-icons-round"
-  type="reset"
-  on:click={generateGrid}
->
-  replay_circle_filled
-</button>
+<Settings
+  on:refresh={(ev) => {
+    rows = ev.detail.grid.row;
+    cols = ev.detail.grid.col;
+    generateGrid();
+  }}
+  on:fullscreen={() => {
+    let elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    }
+  }}
+  on:save={() => {
+    html2canvas(document.getElementById("image-grid")).then((canvas) => {
+      let image = canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+      // window.location.href = image;
+    });
+  }}
+/>
 
 <div
   id="image-grid"
@@ -63,28 +121,8 @@
 </div>
 
 <style>
-  #refresh {
-    outline: none;
-    border: white;
-    border-radius: 100%;
-    background-color: #000;
-    color: white;
-    font-size: 2.5rem;
-
-    z-index: 2;
-    position: absolute;
-    top: -4rem;
-    right: 2rem;
-    transition: all 0.25s;
-    animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 1s forwards,
-      wiggle 0.5s linear 2s;
-  }
-
-  #refresh:hover {
-    transform: rotate(-360deg);
-  }
-
   #image-grid {
+    padding: 5px;
     position: absolute;
     width: 100%;
     height: 100%;
