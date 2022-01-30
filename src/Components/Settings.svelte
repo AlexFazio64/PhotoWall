@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { logged } from "../stores";
   import OptionRow from "./OptionRow.svelte";
   let showDropdown: boolean = false;
 
@@ -71,12 +72,14 @@
           dispatch("save");
         }}>save</span
       >
-      <span
-        class="material-icons-round"
-        on:click={() => {
-          dispatch("savecloud");
-        }}>cloud_upload</span
-      >
+      {#if $logged == 1}
+        <span
+          class="material-icons-round"
+          on:click={() => {
+            dispatch("logout");
+          }}>logout</span
+        >
+      {/if}
     </div>
   </div>
 </div>
